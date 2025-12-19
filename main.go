@@ -1,6 +1,7 @@
 package main
 
 import (
+	"image"
 	"log"
 	"os"
 
@@ -11,13 +12,11 @@ import (
 	"gioui.org/op/paint"
 	"gioui.org/text"
 	"gioui.org/unit"
-	"gioui.org/widget"
 	"gioui.org/widget/material"
-	"github.com/leojimenezg/scapmi/gui/assets"
 	"github.com/leojimenezg/scapmi/gui/colors"
 	"github.com/leojimenezg/scapmi/gui/interfaces"
+	"github.com/leojimenezg/scapmi/gui/widgets"
 	"github.com/leojimenezg/scapmi/internal/listener"
-	"github.com/leojimenezg/scapmi/internal/utils"
 	"github.com/leojimenezg/scapmi/internal/vars"
 	"github.com/leojimenezg/scapmi/internal/watcher"
 )
@@ -54,43 +53,125 @@ func ShowGUI() {
 			case vars.StateInit:
 				layout.Flex{Axis: layout.Vertical, Alignment: layout.Middle}.Layout(gtx,
 					layout.Rigid(func(gtx layout.Context) layout.Dimensions {
-						inset := layout.Inset{
-							Top:    unit.Dp(30),
-							Bottom: unit.Dp(10),
+						inset := layout.Inset{Top: unit.Dp(30), Bottom: unit.Dp(10)}
+						return inset.Layout(gtx, func(gtx layout.Context) layout.Dimensions {
+							return widgets.NewImage(gtx, "logo.png", layout.Center, 0.2)
+						})
+					}),
+					layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+						return widgets.NewMainTitle(gtx, th, "Welcome to scapmi")
+					}),
+					layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+						return widgets.NewSubText(gtx, th,
+							"Simultaneously Copy And Paste Multiple Items", text.Middle)
+					}),
+					layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+						inset := layout.Inset{Top: unit.Dp(50), Bottom: unit.Dp(10)}
+						return inset.Layout(gtx, func(gtx layout.Context) layout.Dimensions {
+							return widgets.NewTitle(gtx, th, "App shortcuts")
+						})
+					}),
+					layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+						card := widgets.Card{
+							Size:         image.Pt(1000, 380),
+							CornerRadius: 15,
+							StokeWidth:   2,
+							StokeColor:   colors.ColorBackgroundHover,
+							Color:        colors.ColorBackgroundLight,
 						}
-						return inset.Layout(gtx, func(gtx layout.Context) layout.Dimensions {
-							return widget.Image{
-								Src:      utils.LoadImage(&assets.PngImgs, "logo.png"),
-								Fit:      widget.Unscaled,
-								Position: layout.Center,
-								Scale:    .2,
-							}.Layout(gtx)
+						return widgets.NewCard(gtx, card, func(gtx layout.Context) layout.Dimensions {
+							return layout.UniformInset(unit.Dp(10)).Layout(gtx, func(gtx layout.Context) layout.Dimensions {
+								return layout.Flex{Axis: layout.Vertical, Alignment: layout.Middle}.Layout(gtx,
+									layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+										return layout.Flex{Axis: layout.Horizontal, Alignment: layout.Middle, WeightSum: 1}.Layout(gtx,
+											layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+												gtx.Constraints.Min.X = 100
+												gtx.Constraints.Min.Y = 100
+												gtx.Constraints.Max.X = 100
+												gtx.Constraints.Max.Y = 100
+												return widgets.NewImage(gtx, "img1.png", layout.Center, 0.04)
+											}),
+											layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+												return widgets.NewText(gtx, th, "Select slot", text.Middle)
+											}),
+											layout.Flexed(.93, func(gtx layout.Context) layout.Dimensions {
+												return widgets.NewText(gtx, th, "cmd + c", text.End)
+											}),
+										)
+									}),
+									layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+										return widgets.NewDivider(gtx, 2, colors.ColorBackgroundHover)
+									}),
+									layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+										return layout.Flex{Axis: layout.Horizontal, Alignment: layout.Middle, WeightSum: 1}.Layout(gtx,
+											layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+												gtx.Constraints.Min.X = 100
+												gtx.Constraints.Min.Y = 100
+												gtx.Constraints.Max.X = 100
+												gtx.Constraints.Max.Y = 100
+												return widgets.NewImage(gtx, "img2.png", layout.Center, 0.04)
+											}),
+											layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+												return widgets.NewText(gtx, th, "Select content", text.Middle)
+											}),
+											layout.Flexed(.93, func(gtx layout.Context) layout.Dimensions {
+												return widgets.NewText(gtx, th, "ctrl + alt + v", text.End)
+											}),
+										)
+									}),
+									layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+										extra := image.Pt(gtx.Constraints.Max.X, gtx.Dp(4))
+										return layout.Dimensions{Size: extra}
+									}),
+									layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+										return widgets.NewDivider(gtx, 2, colors.ColorBackgroundHover)
+									}),
+									layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+										return layout.Flex{Axis: layout.Horizontal, Alignment: layout.Middle, WeightSum: 1}.Layout(gtx,
+											layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+												gtx.Constraints.Min.X = 100
+												gtx.Constraints.Min.Y = 100
+												gtx.Constraints.Max.X = 100
+												gtx.Constraints.Max.Y = 100
+												return widgets.NewImage(gtx, "img3.png", layout.Center, 0.04)
+											}),
+											layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+												return widgets.NewText(gtx, th, "Exit application", text.Middle)
+											}),
+											layout.Flexed(.93, func(gtx layout.Context) layout.Dimensions {
+												return widgets.NewText(gtx, th, "ctrl + alt + q", text.End)
+											}),
+										)
+									}),
+								)
+							})
 						})
 					}),
 					layout.Rigid(func(gtx layout.Context) layout.Dimensions {
-						title := material.Label(th, unit.Sp(38), "Welcome to scapmi")
-						title.Color = colors.ColorTextMain
-						title.Alignment = text.Middle
-						return title.Layout(gtx)
+						return layout.Spacer{Width: unit.Dp(10), Height: unit.Dp(210)}.Layout(gtx)
 					}),
 					layout.Rigid(func(gtx layout.Context) layout.Dimensions {
-						sub := material.Label(th, unit.Sp(14), "Simultaneously Copy And Paste Multiple Items")
-						sub.Color = colors.ColorTextSub
-						sub.Alignment = text.Middle
-						return sub.Layout(gtx)
-					}),
-					layout.Rigid(func(gtx layout.Context) layout.Dimensions {
-						inset := layout.Inset{Top: unit.Dp(50)}
-						return inset.Layout(gtx, func(gtx layout.Context) layout.Dimensions {
-							subtitle := material.Label(th, unit.Sp(24), "App Shortcuts")
-							subtitle.Color = colors.ColorTextMain
-							subtitle.Alignment = text.Middle
-							return subtitle.Layout(gtx)
+						return layout.Center.Layout(gtx, func(gtx layout.Context) layout.Dimensions {
+							return layout.Flex{Axis: layout.Horizontal, Alignment: layout.Middle}.Layout(gtx,
+								layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+									return widgets.NewSmallText(gtx, th, "v1.0.0")
+								}),
+								layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+									return layout.Dimensions{Size: image.Pt(gtx.Dp(10), gtx.Dp(10))}
+								}),
+								layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+									return widgets.NewSmallText(gtx, th, "Source")
+								}),
+								layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+									return layout.Dimensions{Size: image.Pt(gtx.Dp(10), gtx.Dp(10))}
+								}),
+								layout.Rigid(func(gtx layout.Context) layout.Dimensions {
+									return widgets.NewSmallText(gtx, th, "Docs")
+								}),
+							)
 						})
 					}),
-					layout.Rigid(func(gtx layout.Context) layout.Dimensions {
-						return layout.Dimensions{}
-					}))
+				)
 
 			case vars.StateIdle:
 				material.H1(th, "Idle State").Layout(gtx)
