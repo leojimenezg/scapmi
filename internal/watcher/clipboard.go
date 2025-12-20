@@ -34,6 +34,7 @@ func WatchClipboard(appState *vars.AppState, window *app.Window) {
 		case <-txt:
 			*appState = vars.StateCopying
 			window.Invalidate()
+
 		case <-img:
 			*appState = vars.StateCopying
 			window.Invalidate()

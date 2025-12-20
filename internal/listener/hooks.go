@@ -13,10 +13,12 @@ func SetHooks(appState *vars.AppState, window *app.Window) {
 		hook.End()
 		os.Exit(0)
 	})
+
 	hook.Register(hook.KeyDown, []string{"ctrl", "alt", "v"}, func(e hook.Event) {
 		*appState = vars.StatePasting
 		window.Invalidate()
 	})
+
 	s := hook.Start()
 	<-hook.Process(s)
 }

@@ -12,19 +12,20 @@ import (
 )
 
 type Card struct {
-	Size         image.Point
-	CornerRadius int
-	StokeWidth   int
-	StokeColor   color.NRGBA
-	Color        color.NRGBA
+	Width      int
+	Height     int
+	Radius     int
+	StokeWidth int
+	StokeColor color.NRGBA
+	Color      color.NRGBA
 }
 
 func NewCard(gtx layout.Context, c Card, widget func(gtx layout.Context) layout.Dimensions) layout.Dimensions {
-	gtx.Constraints.Min.X = c.Size.X
-	gtx.Constraints.Min.Y = c.Size.Y
-	gtx.Constraints.Max.X = c.Size.X
-	gtx.Constraints.Max.Y = c.Size.Y
-	radius := unit.Dp(c.CornerRadius)
+	gtx.Constraints.Min.X = gtx.Dp(unit.Dp(c.Width))
+	gtx.Constraints.Min.Y = gtx.Dp(unit.Dp(c.Height))
+	gtx.Constraints.Max.X = gtx.Dp(unit.Dp(c.Width))
+	gtx.Constraints.Max.Y = gtx.Dp(unit.Dp(c.Height))
+	radius := unit.Dp(c.Radius)
 	return w.Border{
 		Color:        c.StokeColor,
 		CornerRadius: radius,
