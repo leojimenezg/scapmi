@@ -5,6 +5,7 @@ import (
 	"os"
 
 	"gioui.org/app"
+	"gioui.org/font"
 	"gioui.org/font/gofont"
 	"gioui.org/op"
 	"gioui.org/op/paint"
@@ -32,7 +33,7 @@ func main() {
 		log.Fatal(err.Error())
 	}
 	Window = pages.NewWindow()
-	CurrentAppState = vars.StateIdle
+	CurrentAppState = vars.StateInit
 
 	sourceButton := &widget.Clickable{}
 	docsButton := &widget.Clickable{}
@@ -55,6 +56,7 @@ func main() {
 func ShowGUI() {
 	th := material.NewTheme()
 	th.Shaper = text.NewShaper(text.WithCollection(gofont.Collection()))
+	th.Face = font.Typeface("Go")
 	for {
 		switch e := Window.Event().(type) {
 		case app.DestroyEvent:

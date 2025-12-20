@@ -3,6 +3,7 @@ package components
 import (
 	"fmt"
 
+	"gioui.org/font"
 	"gioui.org/layout"
 	"gioui.org/text"
 	"gioui.org/unit"
@@ -34,7 +35,9 @@ func NewHeader(gtx layout.Context, theme *material.Theme, state string) layout.D
 
 			// Title
 			layout.Rigid(func(gtx layout.Context) layout.Dimensions {
-				return widgets.NewLabel(gtx, theme, "scapmi", 22, colors.ColorTextMain, text.Start)
+				return widgets.NewLabel(
+					gtx, theme, "scapmi", 22, colors.ColorTextMain, text.Start, font.Bold,
+				)
 			}),
 
 			// Status (dependent)

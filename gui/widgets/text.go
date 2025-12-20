@@ -3,6 +3,7 @@ package widgets
 import (
 	"image/color"
 
+	"gioui.org/font"
 	"gioui.org/layout"
 	txt "gioui.org/text"
 	"gioui.org/unit"
@@ -12,9 +13,10 @@ import (
 )
 
 func NewLabel(gtx layout.Context, theme *material.Theme, text string,
-	size int, color color.NRGBA, alignment txt.Alignment) layout.Dimensions {
+	size int, color color.NRGBA, alignment txt.Alignment, weight font.Weight) layout.Dimensions {
 	label := material.Label(theme, unit.Sp(size), text)
 	label.Color = color
+	label.Font.Weight = weight
 	label.Alignment = alignment
 	return label.Layout(gtx)
 }
@@ -22,6 +24,7 @@ func NewLabel(gtx layout.Context, theme *material.Theme, text string,
 func NewMainTitle(gtx layout.Context, theme *material.Theme, text string) layout.Dimensions {
 	label := material.Label(theme, fonts.SizeMainTitle, text)
 	label.Color = colors.ColorTextMain
+	label.Font.Weight = font.Bold
 	label.Alignment = txt.Middle
 	return label.Layout(gtx)
 }
@@ -29,6 +32,7 @@ func NewMainTitle(gtx layout.Context, theme *material.Theme, text string) layout
 func NewTitle(gtx layout.Context, theme *material.Theme, text string) layout.Dimensions {
 	label := material.Label(theme, fonts.SizeTitle, text)
 	label.Color = colors.ColorTextMain
+	label.Font.Weight = font.Bold
 	label.Alignment = txt.Middle
 	return label.Layout(gtx)
 }
@@ -36,6 +40,7 @@ func NewTitle(gtx layout.Context, theme *material.Theme, text string) layout.Dim
 func NewText(gtx layout.Context, theme *material.Theme, text string, alignment txt.Alignment) layout.Dimensions {
 	label := material.Label(theme, fonts.SizeText, text)
 	label.Color = colors.ColorTextNormal
+	label.Font.Weight = font.Normal
 	label.Alignment = alignment
 	return label.Layout(gtx)
 }
@@ -43,6 +48,7 @@ func NewText(gtx layout.Context, theme *material.Theme, text string, alignment t
 func NewSubText(gtx layout.Context, theme *material.Theme, text string, alignment txt.Alignment) layout.Dimensions {
 	label := material.Label(theme, fonts.SizeSubtext, text)
 	label.Color = colors.ColorTextSub
+	label.Font.Weight = font.Normal
 	label.Alignment = alignment
 	return label.Layout(gtx)
 }
@@ -50,6 +56,7 @@ func NewSubText(gtx layout.Context, theme *material.Theme, text string, alignmen
 func NewSmallText(gtx layout.Context, theme *material.Theme, text string) layout.Dimensions {
 	label := material.Label(theme, fonts.SizeSmallText, text)
 	label.Color = colors.ColorTextSub
+	label.Font.Weight = font.Normal
 	label.Alignment = txt.Middle
 	return label.Layout(gtx)
 }
