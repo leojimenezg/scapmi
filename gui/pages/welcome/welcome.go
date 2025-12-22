@@ -10,7 +10,7 @@ import (
 	"github.com/leojimenezg/scapmi/gui/widgets"
 )
 
-// WelcomeItems contains all pointers to its interactive items
+// WelcomeItems contains all pointers to its interactive items.
 type WelcomeItems struct {
 	SourceButton *widget.Clickable
 	DocsButton   *widget.Clickable

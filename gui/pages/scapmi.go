@@ -1,0 +1,87 @@
+package pages
+
+import (
+	"os"
+
+	"gioui.org/app"
+	"gioui.org/font"
+	"gioui.org/font/gofont"
+	"gioui.org/op"
+	"gioui.org/op/paint"
+	"gioui.org/text"
+	"gioui.org/unit"
+	"gioui.org/widget"
+	"gioui.org/widget/material"
+	"github.com/leojimenezg/scapmi/gui/colors"
+	"github.com/leojimenezg/scapmi/gui/pages/copying"
+	"github.com/leojimenezg/scapmi/gui/pages/idle"
+	"github.com/leojimenezg/scapmi/gui/pages/welcome"
+	"github.com/leojimenezg/scapmi/internal/vars"
+)
+
+var welcomeGUI welcome.WelcomeItems
+var idleGUI idle.IdleItems
+var copyingGUI copying.CopyingItems
+
+type Scapmi struct {
+	Window   *app.Window
+	Theme    *material.Theme
+	AppState vars.AppState
+}
+
+func NewWindow() *Scapmi {
+	w := Scapmi{Window: new(app.Window)}
+	w.Window.Option(
+		app.Title("scapmi"),
+		app.Size(unit.Dp(1280), unit.Dp(720)),
+		app.MaxSize(unit.Dp(1280), unit.Dp(720)),
+		app.MinSize(unit.Dp(1280), unit.Dp(720)),
+	)
+	w.Theme = material.NewTheme()
+	w.Theme.Shaper = text.NewShaper(text.WithCollection(gofont.Collection()))
+	w.Theme.Face = font.Typeface("Go")
+	w.AppState = vars.StateInit
+	return &w
+}
+
+func initPages() {
+	sourceBtn := &widget.Clickable{}
+	docsBtn := &widget.Clickable{}
+	cardBtns := [5]*widget.Clickable{}
+
+	welcomeGUI.SourceButton = sourceBtn
+	welcomeGUI.DocsButton = docsBtn
+
+	idleGUI.SourceButton = sourceBtn
+	idleGUI.DocsButton = docsBtn
+
+	copyingGUI.SourceButton = sourceBtn
+	copyingGUI.DocsButton = docsBtn
+	copyingGUI.CardButtons = cardBtns
+}
+
+func (s *Scapmi) Draw() {
+	initPages()
+	for {
+		switch e := s.Window.Event().(type) {
+		case app.DestroyEvent:
+			os.Exit(0)
+		case app.FrameEvent:
+			var ops op.Ops
+			gtx := app.NewContext(&ops, e)
+			paint.ColorOp{Color: colors.ColorBackground}.Add(gtx.Ops)
+			paint.PaintOp{}.Add(gtx.Ops)
+			switch s.AppState {
+			case vars.StateInit:
+				welcomeGUI.Draw(gtx, s.Theme)
+			case vars.StateIdle:
+				idleGUI.Draw(gtx, s.Theme)
+			case vars.StateCopying:
+				copyingGUI.Draw(gtx, s.Theme)
+			case vars.StatePasting:
+				material.H1(s.Theme, "Pasting State").Layout(gtx)
+			}
+			e.Frame(gtx.Ops)
+		}
+	}
+}

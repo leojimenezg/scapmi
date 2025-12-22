@@ -10,7 +10,7 @@ import (
 	"github.com/leojimenezg/scapmi/gui/widgets"
 )
 
-// FooterItems contains all the pointers to its interactive items
+// FooterItems contains all the pointers to its interactive items.
 type FooterItems struct {
 	SourceButton *widget.Clickable
 	DocsButton   *widget.Clickable
