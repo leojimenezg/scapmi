@@ -15,12 +15,12 @@ var iconSize = unit.Dp(17)
 
 func NewShortcuts(gtx layout.Context, theme *material.Theme) layout.Dimensions {
 	card := widgets.Card{
-		Width:      500,
-		Height:     190,
-		Radius:     15,
-		StokeWidth: 2,
-		StokeColor: colors.ColorBackgroundHover,
-		Color:      colors.ColorBackgroundLight,
+		Width:       500,
+		Height:      190,
+		Radius:      15,
+		StrokeWidth: 2,
+		StrokeColor: colors.ColorBackgroundHover,
+		Color:       colors.ColorBackgroundLight,
 	}
 	return widgets.NewCard(gtx, card, func(gtx layout.Context) layout.Dimensions {
 		return layout.Flex{Axis: layout.Vertical, Alignment: layout.Middle}.Layout(gtx,

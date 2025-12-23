@@ -12,12 +12,12 @@ import (
 )
 
 type Card struct {
-	Width      int
-	Height     int
-	Radius     int
-	StokeWidth int
-	StokeColor color.NRGBA
-	Color      color.NRGBA
+	Width       int
+	Height      int
+	Radius      int
+	StrokeWidth int
+	StrokeColor color.NRGBA
+	Color       color.NRGBA
 }
 
 func NewCard(gtx layout.Context, c Card, widget func(gtx layout.Context) layout.Dimensions) layout.Dimensions {
@@ -27,9 +27,9 @@ func NewCard(gtx layout.Context, c Card, widget func(gtx layout.Context) layout.
 	gtx.Constraints.Max.Y = gtx.Dp(unit.Dp(c.Height))
 	radius := unit.Dp(c.Radius)
 	return w.Border{
-		Color:        c.StokeColor,
+		Color:        c.StrokeColor,
 		CornerRadius: radius,
-		Width:        unit.Dp(c.StokeWidth),
+		Width:        unit.Dp(c.StrokeWidth),
 	}.Layout(gtx, func(gtx layout.Context) layout.Dimensions {
 		inside := clip.UniformRRect(image.Rectangle{
 			Max: image.Pt(gtx.Constraints.Max.X, gtx.Constraints.Max.Y),

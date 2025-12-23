@@ -47,7 +47,13 @@ func NewWindow() *Scapmi {
 func initPages() {
 	sourceBtn := &widget.Clickable{}
 	docsBtn := &widget.Clickable{}
-	cardBtns := [5]*widget.Clickable{}
+	slotBtns := [5]*widget.Clickable{
+		new(widget.Clickable),
+		new(widget.Clickable),
+		new(widget.Clickable),
+		new(widget.Clickable),
+		new(widget.Clickable),
+	}
 
 	welcomeGUI.SourceButton = sourceBtn
 	welcomeGUI.DocsButton = docsBtn
@@ -57,7 +63,7 @@ func initPages() {
 
 	copyingGUI.SourceButton = sourceBtn
 	copyingGUI.DocsButton = docsBtn
-	copyingGUI.CardButtons = cardBtns
+	copyingGUI.SlotButtons = slotBtns
 }
 
 func (s *Scapmi) Draw() {
