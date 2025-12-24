@@ -15,6 +15,7 @@ import (
 	"github.com/leojimenezg/scapmi/gui/colors"
 	"github.com/leojimenezg/scapmi/gui/pages/copying"
 	"github.com/leojimenezg/scapmi/gui/pages/idle"
+	"github.com/leojimenezg/scapmi/gui/pages/pasting"
 	"github.com/leojimenezg/scapmi/gui/pages/welcome"
 	"github.com/leojimenezg/scapmi/internal/vars"
 )
@@ -22,10 +23,12 @@ import (
 var welcomeGUI welcome.WelcomeItems
 var idleGUI idle.IdleItems
 var copyingGUI copying.CopyingItems
+var pastingGUI pasting.PastingItems
 
 type Scapmi struct {
 	Window   *app.Window
 	Theme    *material.Theme
+	Slots    [5]*vars.Slot
 	AppState vars.AppState
 }
 
@@ -40,11 +43,18 @@ func NewWindow() *Scapmi {
 	w.Theme = material.NewTheme()
 	w.Theme.Shaper = text.NewShaper(text.WithCollection(gofont.Collection()))
 	w.Theme.Face = font.Typeface("Go")
+	w.Slots = [5]*vars.Slot{
+		new(vars.Slot),
+		new(vars.Slot),
+		new(vars.Slot),
+		new(vars.Slot),
+		new(vars.Slot),
+	}
 	w.AppState = vars.StateInit
 	return &w
 }
 
-func initPages() {
+func (s *Scapmi) initPages() {
 	sourceBtn := &widget.Clickable{}
 	docsBtn := &widget.Clickable{}
 	slotBtns := [5]*widget.Clickable{
@@ -61,13 +71,19 @@ func initPages() {
 	idleGUI.SourceButton = sourceBtn
 	idleGUI.DocsButton = docsBtn
 
+	copyingGUI.Slots = s.Slots
+	copyingGUI.SlotButtons = slotBtns
 	copyingGUI.SourceButton = sourceBtn
 	copyingGUI.DocsButton = docsBtn
-	copyingGUI.SlotButtons = slotBtns
+
+	pastingGUI.Slots = s.Slots
+	pastingGUI.SlotButtons = slotBtns
+	pastingGUI.SourceButton = sourceBtn
+	pastingGUI.DocsButton = docsBtn
 }
 
 func (s *Scapmi) Draw() {
-	initPages()
+	s.initPages()
 	for {
 		switch e := s.Window.Event().(type) {
 		case app.DestroyEvent:
