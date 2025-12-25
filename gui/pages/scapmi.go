@@ -101,7 +101,7 @@ func (s *Scapmi) Draw() {
 			case vars.StateCopying:
 				copyingGUI.Draw(gtx, s.Theme)
 			case vars.StatePasting:
-				material.H1(s.Theme, "Pasting State").Layout(gtx)
+				pastingGUI.Draw(gtx, s.Theme)
 			}
 			e.Frame(gtx.Ops)
 		}
