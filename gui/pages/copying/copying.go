@@ -192,7 +192,7 @@ func (c *CopyingItems) Draw(gtx layout.Context, theme *material.Theme) {
 					// Message 1
 					layout.Rigid(func(gtx layout.Context) layout.Dimensions {
 						msg := components.Message{
-							Image: "img4.png",
+							Image: "clock.png",
 							Title: "Default slot behaviour:",
 							Text:  "If no slot is selected in 5 seconds, the content goes to default slot",
 						}
@@ -209,7 +209,7 @@ func (c *CopyingItems) Draw(gtx layout.Context, theme *material.Theme) {
 					// Message 2
 					layout.Rigid(func(gtx layout.Context) layout.Dimensions {
 						msg := components.Message{
-							Image: "img5.png",
+							Image: "save.png",
 							Title: "Saving to empty slot:",
 							Text:  "If the selected slot is empty, copied content saves in it",
 						}
@@ -226,7 +226,7 @@ func (c *CopyingItems) Draw(gtx layout.Context, theme *material.Theme) {
 					// Message 3
 					layout.Rigid(func(gtx layout.Context) layout.Dimensions {
 						msg := components.Message{
-							Image: "img6.png",
+							Image: "replace.png",
 							Title: "Replacing content:",
 							Text:  "If the selected is not empty, its content wil be replaced",
 						}

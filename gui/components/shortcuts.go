@@ -32,7 +32,7 @@ func NewShortcuts(gtx layout.Context, theme *material.Theme) layout.Dimensions {
 						layout.Rigid(func(gtx layout.Context) layout.Dimensions {
 							gtx.Constraints.Max.X = gtx.Dp(iconSize)
 							gtx.Constraints.Max.Y = gtx.Dp(iconSize)
-							return widgets.NewImage(gtx, "img1.png", layout.Center, 0)
+							return widgets.NewImage(gtx, "select.png", layout.Center, 0)
 						}),
 
 						// Spacer
@@ -66,7 +66,7 @@ func NewShortcuts(gtx layout.Context, theme *material.Theme) layout.Dimensions {
 						layout.Rigid(func(gtx layout.Context) layout.Dimensions {
 							gtx.Constraints.Max.X = gtx.Dp(iconSize)
 							gtx.Constraints.Max.Y = gtx.Dp(iconSize)
-							return widgets.NewImage(gtx, "img2.png", layout.Center, 0)
+							return widgets.NewImage(gtx, "add.png", layout.Center, 0)
 						}),
 
 						// Spacer
@@ -100,7 +100,7 @@ func NewShortcuts(gtx layout.Context, theme *material.Theme) layout.Dimensions {
 						layout.Rigid(func(gtx layout.Context) layout.Dimensions {
 							gtx.Constraints.Max.X = gtx.Dp(iconSize)
 							gtx.Constraints.Max.Y = gtx.Dp(iconSize)
-							return widgets.NewImage(gtx, "img3.png", layout.Center, 0)
+							return widgets.NewImage(gtx, "cancel.png", layout.Center, 0)
 						}),
 
 						// Spacer

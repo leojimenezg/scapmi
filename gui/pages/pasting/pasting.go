@@ -192,7 +192,7 @@ func (p *PastingItems) Draw(gtx layout.Context, theme *material.Theme) {
 					// Message 1
 					layout.Rigid(func(gtx layout.Context) layout.Dimensions {
 						msg := components.Message{
-							Image: "img4.png",
+							Image: "clock.png",
 							Title: "Default slot behaviour:",
 							Text:  "If no slot is selected in 5 seconds, content from default will be used",
 						}
@@ -209,7 +209,7 @@ func (p *PastingItems) Draw(gtx layout.Context, theme *material.Theme) {
 					// Message 2
 					layout.Rigid(func(gtx layout.Context) layout.Dimensions {
 						msg := components.Message{
-							Image: "img7.png",
+							Image: "pointer.png",
 							Title: "Slot selection:",
 							Text:  "You can only select any of the non empty slots",
 						}
