@@ -4,6 +4,7 @@ go 1.25.3
 
 require (
 	gioui.org v0.9.0
+	github.com/pkg/browser v0.0.0-20240102092130-5ac0b6a4141c
 	github.com/robotn/gohook v0.42.3
 	golang.design/x/clipboard v0.7.1
 )

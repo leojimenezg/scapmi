@@ -4,10 +4,11 @@ import (
 	"bytes"
 	"fmt"
 	"image/png"
+	"log"
 
 	"gioui.org/op/paint"
-	// "gioui.org/widget"
 	"github.com/leojimenezg/scapmi/gui/assets"
+	"github.com/pkg/browser"
 )
 
 func LoadPNG(name string) paint.ImageOp {
@@ -24,15 +25,9 @@ func LoadPNG(name string) paint.ImageOp {
 	return paint.NewImageOp(image)
 }
 
-// func LoadSVG(name string) *widget.Icon {
-// 	fileName := fmt.Sprintf("public/%s", name)
-// 	file, err := assets.SvgIcons.ReadFile(fileName)
-// 	if err != nil {
-// 		return &widget.Icon{}
-// 	}
-// 	icon, err := widget.NewIcon(file)
-// 	if err != nil {
-// 		return &widget.Icon{}
-// 	}
-// 	return icon
-// }
+func OpenURL(url string) {
+	err := browser.OpenURL(url)
+	if err != nil {
+		log.Printf("failed to open %s URL: %v", url, err)
+	}
+}
