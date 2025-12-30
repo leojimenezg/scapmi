@@ -12,6 +12,7 @@ type Slot struct {
 	Content    []byte
 	Type       SlotType
 	HasContent bool
+	Summary    string
 }
 
 // ============================================================================

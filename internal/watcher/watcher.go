@@ -9,11 +9,20 @@ import (
 	"golang.design/x/clipboard"
 )
 
+type WatcherType int
+
+const (
+	NoType = iota
+	TextType
+	ImageType
+)
+
 type Watcher struct {
-	Ctx       context.Context
+	Ctx          context.Context
 	IgnoreChange bool
-	TextChan  <-chan []byte
-	ImageChan <-chan []byte
+	CurrentType  WatcherType
+	TextChan     <-chan []byte
+	ImageChan    <-chan []byte
 }
 
 func NewWatcher() *Watcher {
@@ -37,16 +46,21 @@ func (w *Watcher) WatchClipboard(appState *vars.AppState, window *app.Window) {
 		select {
 		case <-w.TextChan:
 			if w.IgnoreChange {
+				w.CurrentType = NoType
 				w.IgnoreChange = false
 				continue
 			}
+			w.CurrentType = TextType
 			*appState = vars.StateCopying
 			window.Invalidate()
+
 		case <-w.ImageChan:
 			if w.IgnoreChange {
+				w.CurrentType = NoType
 				w.IgnoreChange = false
 				continue
 			}
+			w.CurrentType = ImageType
 			*appState = vars.StateCopying
 			window.Invalidate()
 		}
