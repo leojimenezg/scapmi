@@ -8,7 +8,13 @@ import (
 	"github.com/robotn/gohook"
 )
 
-func SetHooks(appState *vars.AppState, window *app.Window) {
+type Listener struct{}
+
+func NewListener() *Listener {
+	return new(Listener)
+}
+
+func (l *Listener) SetHooks(appState *vars.AppState, window *app.Window) {
 	hook.Register(hook.KeyDown, []string{"ctrl", "alt", "q"}, func(e hook.Event) {
 		hook.End()
 		os.Exit(0)
