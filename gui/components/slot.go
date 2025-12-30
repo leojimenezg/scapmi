@@ -1,7 +1,6 @@
 package components
 
 import (
-	"log"
 	"strconv"
 
 	"gioui.org/io/pointer"
@@ -31,6 +30,7 @@ const (
 
 type Slot struct {
 	Button *widget.Clickable
+	Action func()
 	Number int
 	State  SlotState
 	Type   SlotType
@@ -44,8 +44,7 @@ func NewSlot(gtx layout.Context, theme *material.Theme, slot Slot) layout.Dimens
 		card.Color = colors.ColorBackgroundLight
 		card.StrokeColor = colors.ColorBackgroundHover
 		if slot.Button.Clicked(gtx) {
-			// TODO: Use actual function to handle slot
-			log.Printf("Slot %d clicked", slot.Number)
+			slot.Action()
 		}
 		if slot.Button.Hovered() {
 			card.Color = colors.ColorBackgroundHover

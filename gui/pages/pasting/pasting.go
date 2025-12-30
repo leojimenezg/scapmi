@@ -8,12 +8,13 @@ import (
 	"gioui.org/widget/material"
 	"github.com/leojimenezg/scapmi/gui/components"
 	"github.com/leojimenezg/scapmi/gui/widgets"
+	"github.com/leojimenezg/scapmi/internal/manager"
 	"github.com/leojimenezg/scapmi/internal/vars"
 )
 
 // PastingItems contains all pointers to its interactive items.
 type PastingItems struct {
-	Slots        [5]*vars.Slot
+	Manager      *manager.Manager
 	SlotButtons  [5]*widget.Clickable
 	SourceButton *widget.Clickable
 	DocsButton   *widget.Clickable
@@ -64,12 +65,13 @@ func (p *PastingItems) Draw(gtx layout.Context, theme *material.Theme) {
 							Text:   "description of content...",
 							Extra:  "Default",
 						}
+						slot.Action = func() { p.Manager.LoadFromSlot(slot.Number) }
 						slot.State = components.EmptyUnusable
-						if p.Slots[0].HasContent {
+						if p.Manager.Slots[0].HasContent {
 							slot.State = components.FilledUsable
 						}
 						slot.Type = components.SlotText
-						if p.Slots[0].Type == vars.TypeImage {
+						if p.Manager.Slots[0].Type == vars.TypeImage {
 							slot.Type = components.SlotImage
 						}
 						return components.NewSlot(gtx, theme, slot)
@@ -89,12 +91,13 @@ func (p *PastingItems) Draw(gtx layout.Context, theme *material.Theme) {
 							Number: 1,
 							Text:   "description of content...",
 						}
+						slot.Action = func() { p.Manager.LoadFromSlot(slot.Number) }
 						slot.State = components.EmptyUnusable
-						if p.Slots[1].HasContent {
+						if p.Manager.Slots[1].HasContent {
 							slot.State = components.FilledUsable
 						}
 						slot.Type = components.SlotText
-						if p.Slots[1].Type == vars.TypeImage {
+						if p.Manager.Slots[1].Type == vars.TypeImage {
 							slot.Type = components.SlotImage
 						}
 						return components.NewSlot(gtx, theme, slot)
@@ -114,12 +117,13 @@ func (p *PastingItems) Draw(gtx layout.Context, theme *material.Theme) {
 							Number: 2,
 							Text:   "description of content...",
 						}
+						slot.Action = func() { p.Manager.LoadFromSlot(slot.Number) }
 						slot.State = components.EmptyUnusable
-						if p.Slots[2].HasContent {
+						if p.Manager.Slots[2].HasContent {
 							slot.State = components.FilledUsable
 						}
 						slot.Type = components.SlotText
-						if p.Slots[2].Type == vars.TypeImage {
+						if p.Manager.Slots[2].Type == vars.TypeImage {
 							slot.Type = components.SlotImage
 						}
 						return components.NewSlot(gtx, theme, slot)
@@ -139,12 +143,13 @@ func (p *PastingItems) Draw(gtx layout.Context, theme *material.Theme) {
 							Number: 3,
 							Text:   "description of content...",
 						}
+						slot.Action = func() { p.Manager.LoadFromSlot(slot.Number) }
 						slot.State = components.EmptyUnusable
-						if p.Slots[3].HasContent {
+						if p.Manager.Slots[3].HasContent {
 							slot.State = components.FilledUsable
 						}
 						slot.Type = components.SlotText
-						if p.Slots[3].Type == vars.TypeImage {
+						if p.Manager.Slots[3].Type == vars.TypeImage {
 							slot.Type = components.SlotImage
 						}
 						return components.NewSlot(gtx, theme, slot)
@@ -164,12 +169,13 @@ func (p *PastingItems) Draw(gtx layout.Context, theme *material.Theme) {
 							Number: 4,
 							Text:   "description of content...",
 						}
+						slot.Action = func() { p.Manager.LoadFromSlot(slot.Number) }
 						slot.State = components.EmptyUnusable
-						if p.Slots[4].HasContent {
+						if p.Manager.Slots[4].HasContent {
 							slot.State = components.FilledUsable
 						}
 						slot.Type = components.SlotText
-						if p.Slots[4].Type == vars.TypeImage {
+						if p.Manager.Slots[4].Type == vars.TypeImage {
 							slot.Type = components.SlotImage
 						}
 						return components.NewSlot(gtx, theme, slot)

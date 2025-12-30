@@ -34,6 +34,7 @@ func (w *Watcher) Init() {
 
 func (w *Watcher) WatchClipboard(appState *vars.AppState, window *app.Window) {
 	for {
+		// TODO: Use the MsgChan to detect if changes were ours or not.
 		select {
 		case <-w.TextChan:
 			*appState = vars.StateCopying

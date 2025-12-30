@@ -17,6 +17,7 @@ import (
 	"github.com/leojimenezg/scapmi/gui/pages/idle"
 	"github.com/leojimenezg/scapmi/gui/pages/pasting"
 	"github.com/leojimenezg/scapmi/gui/pages/welcome"
+	"github.com/leojimenezg/scapmi/internal/manager"
 	"github.com/leojimenezg/scapmi/internal/vars"
 )
 
@@ -26,32 +27,29 @@ var copyingGUI copying.CopyingItems
 var pastingGUI pasting.PastingItems
 
 type Scapmi struct {
-	Window   *app.Window
-	Theme    *material.Theme
-	Slots    [5]*vars.Slot
-	AppState vars.AppState
+	Manager *manager.Manager
+	Theme   *material.Theme
 }
 
 func NewWindow() *Scapmi {
-	w := Scapmi{Window: new(app.Window)}
-	w.Window.Option(
+	w := new(Scapmi)
+	w.Theme = material.NewTheme()
+	w.Manager = manager.NewManager()
+	return w
+}
+
+func (s *Scapmi) Init() {
+	s.Theme = material.NewTheme()
+	s.Theme.Shaper = text.NewShaper(text.WithCollection(gofont.Collection()))
+	s.Theme.Face = font.Typeface("Go")
+
+	s.Manager.Window.Option(
 		app.Title("scapmi"),
 		app.Size(unit.Dp(1280), unit.Dp(720)),
 		app.MaxSize(unit.Dp(1280), unit.Dp(720)),
 		app.MinSize(unit.Dp(1280), unit.Dp(720)),
 	)
-	w.Theme = material.NewTheme()
-	w.Theme.Shaper = text.NewShaper(text.WithCollection(gofont.Collection()))
-	w.Theme.Face = font.Typeface("Go")
-	w.Slots = [5]*vars.Slot{
-		new(vars.Slot),
-		new(vars.Slot),
-		new(vars.Slot),
-		new(vars.Slot),
-		new(vars.Slot),
-	}
-	w.AppState = vars.StateInit
-	return &w
+	s.initPages()
 }
 
 func (s *Scapmi) initPages() {
@@ -71,21 +69,20 @@ func (s *Scapmi) initPages() {
 	idleGUI.SourceButton = sourceBtn
 	idleGUI.DocsButton = docsBtn
 
-	copyingGUI.Slots = s.Slots
+	copyingGUI.Manager = s.Manager
 	copyingGUI.SlotButtons = slotBtns
 	copyingGUI.SourceButton = sourceBtn
 	copyingGUI.DocsButton = docsBtn
 
-	pastingGUI.Slots = s.Slots
+	pastingGUI.Manager = s.Manager
 	pastingGUI.SlotButtons = slotBtns
 	pastingGUI.SourceButton = sourceBtn
 	pastingGUI.DocsButton = docsBtn
 }
 
 func (s *Scapmi) Draw() {
-	s.initPages()
 	for {
-		switch e := s.Window.Event().(type) {
+		switch e := s.Manager.Window.Event().(type) {
 		case app.DestroyEvent:
 			os.Exit(0)
 		case app.FrameEvent:
@@ -93,7 +90,7 @@ func (s *Scapmi) Draw() {
 			gtx := app.NewContext(&ops, e)
 			paint.ColorOp{Color: colors.ColorBackground}.Add(gtx.Ops)
 			paint.PaintOp{}.Add(gtx.Ops)
-			switch s.AppState {
+			switch s.Manager.AppState {
 			case vars.StateInit:
 				welcomeGUI.Draw(gtx, s.Theme)
 			case vars.StateIdle:
