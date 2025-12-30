@@ -11,17 +11,17 @@ import (
 
 type Watcher struct {
 	Ctx       context.Context
+	IgnoreChange bool
 	TextChan  <-chan []byte
 	ImageChan <-chan []byte
-	MsgChan   <-chan []byte
 }
 
 func NewWatcher() *Watcher {
 	w := new(Watcher)
 	w.Ctx = context.Background()
+	w.IgnoreChange = false
 	w.TextChan = clipboard.Watch(w.Ctx, clipboard.FmtText)
 	w.ImageChan = clipboard.Watch(w.Ctx, clipboard.FmtImage)
-	w.MsgChan = make(<-chan []byte, 1)
 	return w
 }
 
@@ -34,12 +34,19 @@ func (w *Watcher) Init() {
 
 func (w *Watcher) WatchClipboard(appState *vars.AppState, window *app.Window) {
 	for {
-		// TODO: Use the MsgChan to detect if changes were ours or not.
 		select {
 		case <-w.TextChan:
+			if w.IgnoreChange {
+				w.IgnoreChange = false
+				continue
+			}
 			*appState = vars.StateCopying
 			window.Invalidate()
 		case <-w.ImageChan:
+			if w.IgnoreChange {
+				w.IgnoreChange = false
+				continue
+			}
 			*appState = vars.StateCopying
 			window.Invalidate()
 		}
