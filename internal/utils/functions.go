@@ -6,7 +6,6 @@ import (
 	"image/png"
 	"log"
 
-	"gioui.org/app"
 	"gioui.org/op/paint"
 	"github.com/leojimenezg/scapmi/gui/assets"
 	"github.com/pkg/browser"
@@ -32,5 +31,3 @@ func OpenURL(url string) {
 		log.Printf("failed to open %s URL: %v", url, err)
 	}
 }
-
-func SaveToSlot(window *app.Window) {}
