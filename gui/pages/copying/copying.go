@@ -53,7 +53,6 @@ func (c *CopyingItems) Draw(gtx layout.Context, theme *material.Theme) {
 		}),
 
 		// Slots
-		// TODO: Use a function or something to get a useful desription of the slot content, and not see just bytes (numbers).
 		layout.Rigid(func(gtx layout.Context) layout.Dimensions {
 			return layout.Center.Layout(gtx, func(gtx layout.Context) layout.Dimensions {
 				return layout.Flex{Axis: layout.Horizontal, Alignment: layout.Middle}.Layout(gtx,
@@ -62,7 +61,7 @@ func (c *CopyingItems) Draw(gtx layout.Context, theme *material.Theme) {
 						slot := components.Slot{
 							Button: c.SlotButtons[0],
 							Number: 0,
-							Text:   "description of content...",
+							Text:   c.Manager.Slots[0].Summary,
 							Extra:  "Default",
 						}
 						slot.Action = func() { c.Manager.SaveToSlot(slot.Number) }
@@ -89,7 +88,7 @@ func (c *CopyingItems) Draw(gtx layout.Context, theme *material.Theme) {
 						slot := components.Slot{
 							Button: c.SlotButtons[1],
 							Number: 1,
-							Text:   "description of content...",
+							Text:   c.Manager.Slots[1].Summary,
 						}
 						slot.Action = func() { c.Manager.SaveToSlot(slot.Number) }
 						slot.State = components.EmptyUsable
@@ -115,7 +114,7 @@ func (c *CopyingItems) Draw(gtx layout.Context, theme *material.Theme) {
 						slot := components.Slot{
 							Button: c.SlotButtons[2],
 							Number: 2,
-							Text:   "description of content...",
+							Text:   c.Manager.Slots[2].Summary,
 						}
 						slot.Action = func() { c.Manager.SaveToSlot(slot.Number) }
 						slot.State = components.EmptyUsable
@@ -141,7 +140,7 @@ func (c *CopyingItems) Draw(gtx layout.Context, theme *material.Theme) {
 						slot := components.Slot{
 							Button: c.SlotButtons[3],
 							Number: 3,
-							Text:   "description of content...",
+							Text:   c.Manager.Slots[3].Summary,
 						}
 						slot.Action = func() { c.Manager.SaveToSlot(slot.Number) }
 						slot.State = components.EmptyUsable
@@ -167,7 +166,7 @@ func (c *CopyingItems) Draw(gtx layout.Context, theme *material.Theme) {
 						slot := components.Slot{
 							Button: c.SlotButtons[4],
 							Number: 4,
-							Text:   "description of content...",
+							Text:   c.Manager.Slots[4].Summary,
 						}
 						slot.Action = func() { c.Manager.SaveToSlot(slot.Number) }
 						slot.State = components.EmptyUsable
