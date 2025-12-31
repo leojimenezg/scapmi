@@ -43,7 +43,7 @@ func (m *Manager) SetListener() {
 }
 
 func (m *Manager) SaveToSlot(number int) {
-	if number < 0 || number > 5 {
+	if number < 0 || number > 4 {
 		number = 0
 	}
 	var slotType vars.SlotType
@@ -65,7 +65,7 @@ func (m *Manager) SaveToSlot(number int) {
 }
 
 func (m *Manager) LoadFromSlot(number int) {
-	if number < 0 || number > 5 {
+	if number < 0 || number > 4 {
 		number = 0
 	}
 	m.Watcher.IgnoreChange = true
