@@ -5,6 +5,7 @@ import (
 	"log"
 
 	"gioui.org/app"
+	"gioui.org/io/system"
 	"github.com/leojimenezg/scapmi/internal/vars"
 	"golang.design/x/clipboard"
 )
@@ -53,6 +54,7 @@ func (w *Watcher) WatchClipboard(appState *vars.AppState, window *app.Window) {
 			w.CurrentType = TextType
 			*appState = vars.StateCopying
 			window.Invalidate()
+			window.Perform(system.ActionRaise)
 
 		case <-w.ImageChan:
 			if w.IgnoreChange {
@@ -63,6 +65,7 @@ func (w *Watcher) WatchClipboard(appState *vars.AppState, window *app.Window) {
 			w.CurrentType = ImageType
 			*appState = vars.StateCopying
 			window.Invalidate()
+			window.Perform(system.ActionRaise)
 		}
 	}
 }
