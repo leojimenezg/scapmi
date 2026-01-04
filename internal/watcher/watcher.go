@@ -5,7 +5,6 @@ import (
 	"log"
 
 	"gioui.org/app"
-	"gioui.org/io/system"
 	"github.com/leojimenezg/scapmi/internal/vars"
 	"golang.design/x/clipboard"
 )
@@ -19,19 +18,21 @@ const (
 )
 
 type Watcher struct {
-	Ctx          context.Context
+	Context      context.Context
 	IgnoreChange bool
 	CurrentType  WatcherType
 	TextChan     <-chan []byte
 	ImageChan    <-chan []byte
+	DetectChan   chan bool
 }
 
 func NewWatcher() *Watcher {
 	w := new(Watcher)
-	w.Ctx = context.Background()
+	w.Context = context.Background()
 	w.IgnoreChange = false
-	w.TextChan = clipboard.Watch(w.Ctx, clipboard.FmtText)
-	w.ImageChan = clipboard.Watch(w.Ctx, clipboard.FmtImage)
+	w.TextChan = clipboard.Watch(w.Context, clipboard.FmtText)
+	w.ImageChan = clipboard.Watch(w.Context, clipboard.FmtImage)
+	w.DetectChan = make(chan bool, 1)
 	return w
 }
 
@@ -52,10 +53,7 @@ func (w *Watcher) WatchClipboard(appState *vars.AppState, window *app.Window) {
 				continue
 			}
 			w.CurrentType = TextType
-			*appState = vars.StateCopying
-			window.Invalidate()
-			window.Perform(system.ActionRaise)
-
+			w.DetectChan <- true
 		case <-w.ImageChan:
 			if w.IgnoreChange {
 				w.CurrentType = NoType
@@ -63,9 +61,7 @@ func (w *Watcher) WatchClipboard(appState *vars.AppState, window *app.Window) {
 				continue
 			}
 			w.CurrentType = ImageType
-			*appState = vars.StateCopying
-			window.Invalidate()
-			window.Perform(system.ActionRaise)
+			w.DetectChan <- true
 		}
 	}
 }

@@ -4,15 +4,18 @@ import (
 	"os"
 
 	"gioui.org/app"
-	"gioui.org/io/system"
 	"github.com/leojimenezg/scapmi/internal/vars"
 	"github.com/robotn/gohook"
 )
 
-type Listener struct{}
+type Listener struct {
+	DetectChan chan bool
+}
 
 func NewListener() *Listener {
-	return new(Listener)
+	l := new(Listener)
+	l.DetectChan = make(chan bool, 1)
+	return l
 }
 
 func (l *Listener) SetHooks(appState *vars.AppState, window *app.Window) {
@@ -22,9 +25,7 @@ func (l *Listener) SetHooks(appState *vars.AppState, window *app.Window) {
 	})
 
 	hook.Register(hook.KeyDown, []string{"ctrl", "alt", "v"}, func(e hook.Event) {
-		*appState = vars.StatePasting
-		window.Invalidate()
-		window.Perform(system.ActionRaise)
+		l.DetectChan <- true
 	})
 
 	s := hook.Start()
