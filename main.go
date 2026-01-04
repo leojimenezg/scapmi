@@ -23,6 +23,9 @@ func main() {
 	// Set the event listener in a different goroutine.
 	Scapmi.Manager.SetListener()
 
+	// Set the manager to detect any changes from watcher or listener.
+	go Scapmi.Manager.ListenForEvents()
+
 	// Initialize GUI loop.
 	go Scapmi.Draw()
 

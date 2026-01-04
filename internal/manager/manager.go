@@ -2,8 +2,10 @@ package manager
 
 import (
 	"strings"
+	"time"
 
 	"gioui.org/app"
+	"gioui.org/io/system"
 	"github.com/leojimenezg/scapmi/internal/listener"
 	"github.com/leojimenezg/scapmi/internal/vars"
 	"github.com/leojimenezg/scapmi/internal/watcher"
@@ -16,6 +18,8 @@ type Manager struct {
 	Slots    [5]*vars.Slot
 	Watcher  *watcher.Watcher
 	Listener *listener.Listener
+	CTimer   *time.Timer
+	PTimer   *time.Timer
 }
 
 func NewManager() *Manager {
@@ -43,6 +47,10 @@ func (m *Manager) SetListener() {
 }
 
 func (m *Manager) SaveToSlot(number int) {
+	if m.CTimer != nil {
+		m.CTimer.Stop()
+		m.CTimer = nil
+	}
 	if number < 0 || number > 4 {
 		number = 0
 	}
@@ -75,8 +83,6 @@ func (m *Manager) LoadFromSlot(number int) {
 	case vars.TypeImage:
 		clipboard.Write(clipboard.FmtImage, m.Slots[number].Content)
 	}
-	m.AppState = vars.StateIdle
-	m.Window.Invalidate()
 }
 
 func (m *Manager) createSlotSummary(number int) string {
@@ -91,4 +97,47 @@ func (m *Manager) createSlotSummary(number int) string {
 		summary += " ..."
 	}
 	return summary
+}
+
+func (m *Manager) ListenForEvents() {
+	for {
+		select {
+		case <-m.Watcher.DetectChan:
+			m.AppState = vars.StateCopying
+			m.Window.Invalidate()
+			m.Window.Perform(system.ActionRaise)
+			m.startCopyingTimer()
+
+		case <-m.Listener.DetectChan:
+			m.AppState = vars.StatePasting
+			m.Window.Invalidate()
+			m.Window.Perform(system.ActionRaise)
+			m.startPastingTimer()
+		}
+	}
+}
+
+func (m *Manager) startCopyingTimer() {
+	if m.CTimer != nil {
+		m.CTimer.Stop()
+	}
+	m.CTimer = time.AfterFunc(5*time.Second, func() {
+		if m.AppState == vars.StateCopying {
+			m.SaveToSlot(0)
+		}
+		m.CTimer = nil
+	})
+}
+
+func (m *Manager) startPastingTimer() {
+	if m.PTimer != nil {
+		m.PTimer.Stop()
+	}
+	m.PTimer = time.AfterFunc(10*time.Second, func() {
+		if m.AppState == vars.StatePasting {
+			m.AppState = vars.StateIdle
+			m.Window.Invalidate()
+		}
+		m.PTimer = nil
+	})
 }
