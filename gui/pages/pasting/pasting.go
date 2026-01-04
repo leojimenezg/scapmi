@@ -198,8 +198,8 @@ func (p *PastingItems) Draw(gtx layout.Context, theme *material.Theme) {
 					layout.Rigid(func(gtx layout.Context) layout.Dimensions {
 						msg := components.Message{
 							Image: "clock.png",
-							Title: "Default slot behaviour:",
-							Text:  "If no slot is selected in 5 seconds, content from default will be used",
+							Title: "Selection timeout:",
+							Text:  "Select any slots within 10 seconds, the app returns to idle after timeout",
 						}
 						return components.NewMessage(gtx, theme, msg)
 					}),
