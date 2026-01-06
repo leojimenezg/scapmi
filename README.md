@@ -84,7 +84,7 @@ scapmi runs in the background and raises to focus when you copy content or use k
 ### Basic Workflow
 
 1. **Launch scapmi** - Run the binary from terminal
-2. **Copy content** - Use `Cmd + C` to copy text or images
+2. **Copy content** - Use `Cmd + c` to copy text or images
 3. **Select slot** - Window appears automatically. Click a slot (1-5) within 5 seconds, or defaults to slot 1
 4. **Paste content** - Press `Ctrl + Alt + v` to open pasting window. Click any filled slot to load it into your clipboard
 5. **Paste normally** - Use `Cmd + v` to paste the retrieved content
