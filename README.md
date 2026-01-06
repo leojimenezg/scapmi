@@ -24,12 +24,17 @@ scapmi (Simultaneously Copy And Paste Multiple Items) is a lightweight desktop a
 
 1. **Download binary:** Visit the release [scapmi v1.0.0](https://github.com/leojimenezg/scapmi/releases/tag/v1.0.0) and download the binary
 
-2. **Make executable:**
+2. **Trust the binary:**
+    ```bash
+    xattr -d com.apple.quarantine scapmi
+    ```
+
+3. **Make it executable:**
     ```bash
     chmod +x scapmi
     ```
 
-3. **Run the program:**
+3. **Run the application:**
     ```bash
     ./scapmi
     ```
