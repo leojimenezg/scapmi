@@ -10,9 +10,9 @@ type SlotType int
 
 type Slot struct {
 	Content    []byte
+	Summary    string
 	Type       SlotType
 	HasContent bool
-	Summary    string
 }
 
 // ============================================================================

@@ -22,7 +22,7 @@ scapmi (Simultaneously Copy And Paste Multiple Items) is a lightweight desktop a
 
 **Note:** Currently there is only one binary available compiled for macOS (darwin-arm64) due to packages compatibitily problems.
 
-1. **Download binary:** Visit the release [scapmi v1.0.0](https://github.com/leojimenezg/scapmi/releases/tag/v1.0.0) and download the binary
+1. **Download binary:** Visit the release [scapmi v1.0.1](https://github.com/leojimenezg/scapmi/releases/tag/v1.0.1) and download the binary
 
 2. **Trust the binary:**
     ```bash
@@ -40,7 +40,7 @@ scapmi (Simultaneously Copy And Paste Multiple Items) is a lightweight desktop a
     ```
 
 4. **Grant permissions:** 
-Allow clipboard access and keyboard event detection when prompted
+Allow clipboard access and keyboard event detection when and if prompted
 
 ### Option 2: Build from source
 
@@ -69,7 +69,7 @@ Execute the binary to launch the scapmi application
     ```
 
 5. **Grant permissions:** 
-Allow clipboard access and keyboard event detection when prompted
+Allow clipboard access and keyboard event detection when and if prompted
 
 ## Application Guide
 

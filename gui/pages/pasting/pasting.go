@@ -14,8 +14,8 @@ import (
 
 // PastingItems contains all pointers to its interactive items.
 type PastingItems struct {
-	Manager      *manager.Manager
 	SlotButtons  [5]*widget.Clickable
+	Manager      *manager.Manager
 	SourceButton *widget.Clickable
 	DocsButton   *widget.Clickable
 }

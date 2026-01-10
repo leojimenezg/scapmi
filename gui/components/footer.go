@@ -20,7 +20,7 @@ func NewFooter(gtx layout.Context, theme *material.Theme, obj FooterItems) layou
 	return layout.Flex{Axis: layout.Horizontal, Alignment: layout.Middle}.Layout(gtx,
 		// Version
 		layout.Rigid(func(gtx layout.Context) layout.Dimensions {
-			return widgets.NewSmallText(gtx, theme, "v1.0.0")
+			return widgets.NewSmallText(gtx, theme, "v1.0.1")
 		}),
 
 		// Spacer

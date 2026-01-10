@@ -23,11 +23,9 @@ func (l *Listener) SetHooks(appState *vars.AppState, window *app.Window) {
 		hook.End()
 		os.Exit(0)
 	})
-
 	hook.Register(hook.KeyDown, []string{"ctrl", "alt", "v"}, func(e hook.Event) {
 		l.DetectChan <- true
 	})
-
 	s := hook.Start()
 	<-hook.Process(s)
 }

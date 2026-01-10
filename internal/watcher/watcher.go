@@ -9,21 +9,21 @@ import (
 	"golang.design/x/clipboard"
 )
 
-type WatcherType int
-
 const (
 	NoType = iota
 	TextType
 	ImageType
 )
 
+type WatcherType int
+
 type Watcher struct {
 	Context      context.Context
-	IgnoreChange bool
-	CurrentType  WatcherType
 	TextChan     <-chan []byte
 	ImageChan    <-chan []byte
 	DetectChan   chan bool
+	CurrentType  WatcherType
+	IgnoreChange bool
 }
 
 func NewWatcher() *Watcher {

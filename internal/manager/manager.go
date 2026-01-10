@@ -13,13 +13,13 @@ import (
 )
 
 type Manager struct {
-	Window   *app.Window
-	AppState vars.AppState
 	Slots    [5]*vars.Slot
+	Window   *app.Window
 	Watcher  *watcher.Watcher
 	Listener *listener.Listener
 	CTimer   *time.Timer
 	PTimer   *time.Timer
+	AppState vars.AppState
 }
 
 func NewManager() *Manager {
@@ -47,10 +47,6 @@ func (m *Manager) SetListener() {
 }
 
 func (m *Manager) SaveToSlot(number int) {
-	if m.CTimer != nil {
-		m.CTimer.Stop()
-		m.CTimer = nil
-	}
 	if number < 0 || number > 4 {
 		number = 0
 	}
@@ -107,7 +103,6 @@ func (m *Manager) ListenForEvents() {
 			m.Window.Invalidate()
 			m.Window.Perform(system.ActionRaise)
 			m.startCopyingTimer()
-
 		case <-m.Listener.DetectChan:
 			m.AppState = vars.StatePasting
 			m.Window.Invalidate()

@@ -17,7 +17,6 @@ func LoadPNG(name string) paint.ImageOp {
 	if err != nil {
 		return paint.ImageOp{}
 	}
-
 	image, err := png.Decode(bytes.NewReader(file))
 	if err != nil {
 		return paint.ImageOp{}

@@ -13,9 +13,9 @@ import (
 
 type Circle struct {
 	Diameter    int
+	StrokeWidth int
 	Color       color.NRGBA
 	StrokeColor color.NRGBA
-	StrokeWidth int
 }
 
 func NewCircle(gtx layout.Context, circle Circle) layout.Dimensions {

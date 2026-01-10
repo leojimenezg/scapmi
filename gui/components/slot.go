@@ -29,13 +29,13 @@ const (
 )
 
 type Slot struct {
+	Text   string
+	Extra  string
 	Button *widget.Clickable
 	Action func()
 	Number int
 	State  SlotState
 	Type   SlotType
-	Text   string
-	Extra  string
 }
 
 func NewSlot(gtx layout.Context, theme *material.Theme, slot Slot) layout.Dimensions {

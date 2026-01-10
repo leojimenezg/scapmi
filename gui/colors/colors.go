@@ -1,8 +1,6 @@
 package colors
 
-import (
-	"image/color"
-)
+import "image/color"
 
 var (
 	ColorBackground = color.NRGBA{
