@@ -22,7 +22,7 @@ scapmi (Simultaneously Copy And Paste Multiple Items) is a lightweight desktop a
 
 **Note:** Currently there is only one binary available compiled for macOS (darwin-arm64) due to packages compatibitily problems.
 
-1. **Download binary:** Visit the release [scapmi v1.0.1](https://github.com/leojimenezg/scapmi/releases/tag/v1.0.1) and download the binary
+1. **Download binary:** Visit the release [scapmi v1.0.2](https://github.com/leojimenezg/scapmi/releases/tag/v1.0.2) and download the binary
 
 2. **Trust the binary:**
     ```bash
@@ -111,26 +111,26 @@ scapmi runs in the background and raises to focus when you copy content or use k
 
 *Initial view on first launch with app overview and shortcuts.*
 
-![Welcome Screen](./screenshots/welcome.png)
+![Welcome Screen](./screenshots/welcome.webp)
 
 ### Idle Screen
 
 *Default state when waiting for user action.*
 
-![Idle Screen](./screenshots/idle.png)
+![Idle Screen](./screenshots/idle.webp)
 
 ### Copying Screen
 
 *Appears when clipboard change is detected.*
 
-![Copying Screen](./screenshots/copying.png)
+![Copying Screen](./screenshots/copying.webp)
 
 
 ### Pasting Screen
 
 *Activated via `Ctrl + Alt + v` shortcut.*
 
-![Pasting Screen](./screenshots/pasting.png)
+![Pasting Screen](./screenshots/pasting.webp)
 
 ## Notes
 
